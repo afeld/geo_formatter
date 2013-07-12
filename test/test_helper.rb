@@ -1,5 +1,6 @@
 require 'rubygems'
-require 'test/unit'
+require 'minitest/spec'
+require 'minitest/autorun'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
