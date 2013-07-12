@@ -2,10 +2,18 @@ var assert = require('assert'),
   fs = require('fs'),
   GeoFormatter = require('../geo_formatter');
 
-var RAW_DATA = JSON.parse(fs.readFileSync('test/data.json'));
+var rawData = JSON.parse(fs.readFileSync('test/data.json'));
+// Google uses arbitrary attribute names on the LatLng, so these methods need to be used
+// http://stackoverflow.com/a/15315483/358804
+rawData.forEach(function(result){
+  var loc = result.geometry.location;
+  loc.lat = function(){ return loc.jb; };
+  loc.lng = function(){ return loc.kb; };
+});
+
 var TEST_DATA = [
   {
-    raw: RAW_DATA[0],
+    raw: rawData[0],
     expected: {
       getCoordinates: [30.0444196, 31.23571160000006],
       getAddress: 'Cairo, Cairo Governorate, Egypt',

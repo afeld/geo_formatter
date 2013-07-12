@@ -20,7 +20,7 @@
 
   geoFormatter.prototype.getCoordinates = function(){
     var loc = this.result.geometry.location;
-    return [loc.jb, loc.kb];
+    return [loc.lat(), loc.lng()];
   };
 
   geoFormatter.prototype.getAddress = function(){
