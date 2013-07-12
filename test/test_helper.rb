@@ -32,16 +32,12 @@ module Geocoder
       # Fixture to use if none match the given query.
       #
       def default_fixture_filename
-        "#{fixture_prefix}_madison_square_garden"
-      end
-
-      def fixture_prefix
-        handle
+        'madison_square_garden.json'
       end
 
       def fixture_for_query(query)
-        label = query.reverse_geocode? ? "reverse" : query.text.gsub(/[ \.]/, "_")
-        filename = "#{fixture_prefix}_#{label}"
+        label = query.reverse_geocode? ? "reverse" : query.text
+        filename = "#{label}.json"
         fixture_exists?(filename) ? filename : default_fixture_filename
       end
 

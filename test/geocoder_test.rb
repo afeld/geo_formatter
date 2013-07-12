@@ -4,10 +4,10 @@ require 'active_support/inflector'
 require 'oj'
 
 describe Geocoder do
-  query = "Madison Square Garden, New York, NY"
-  result = Geocoder.search(query).first
+  fixture = 'madison_square_garden'
+  result = Geocoder.search(fixture).first
 
-  describe query do
+  describe fixture do
     getters = Geocoder::Result::Google.instance_methods(false)
     getters = getters.reject{|m| m.to_s.start_with? 'address_components' }
 
@@ -16,7 +16,7 @@ describe Geocoder do
 
       it "should have all it's public instance methods available on the GeoFormatter" do
         geocoder_val = result.send(getter)
-        node_json = `node test/geocoder_test_helper.js test/fixtures/google_madison_square_garden #{js_method}`.strip
+        node_json = `node test/geocoder_test_helper.js test/fixtures/#{fixture}.json #{js_method}`.strip
         # normal JSON.parse() was complaining about the strings
         node_val = Oj.load(node_json)
 
