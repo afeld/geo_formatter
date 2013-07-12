@@ -89,7 +89,7 @@
       if (streetNum && route){
         return [streetNum, route].join(' ');
       } else {
-        return streetNum || route;
+        return streetNum || route || '';
       }
     },
 
