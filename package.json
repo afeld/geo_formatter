@@ -1,0 +1,17 @@
+{
+  "name": "geoformatter",
+  "version": "0.0.0",
+  "description": "Location formatter for Google Maps geolocation.",
+  "main": "geoformatter.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  }
+}
