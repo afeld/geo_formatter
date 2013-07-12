@@ -14,7 +14,7 @@ describe Geocoder do
     getters.each do |getter|
       js_method = "get#{getter.to_s.camelize}"
 
-      it "should have all it's public instance methods available on the GeoFormatter" do
+      it "should match :#{getter}" do
         geocoder_val = result.send(getter)
         node_json = `node test/geocoder_test_helper.js test/fixtures/#{fixture}.json #{js_method}`.strip
         # normal JSON.parse() was complaining about the strings
