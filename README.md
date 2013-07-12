@@ -1,4 +1,4 @@
-# GeoFormatter
+# GeoFormatter [![Build Status](https://travis-ci.org/afeld/geo_formatter.png?branch=master)](https://travis-ci.org/afeld/geo_formatter)
 
 Essentially a JS port of the [geocoder gem's Google result converter](https://github.com/alexreisner/geocoder/blob/master/lib/geocoder/results/google.rb), which wraps a [`GeocoderResult` from Google Maps API v3](https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult) object to provide convenience methods.  Basic usage:
 
