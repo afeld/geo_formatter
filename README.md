@@ -53,5 +53,5 @@ Takes a [`google.maps.GeocoderResult`](https://developers.google.com/maps/docume
 npm install
 bundle install
 
-npm test && rake
+npm test
 ```
