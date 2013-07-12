@@ -1,6 +1,51 @@
 # GeoFormatter
 
-Essentially a JS port of https://github.com/alexreisner/geocoder/blob/master/lib/geocoder/results/google.rb.
+Essentially a JS port of the [geocoder gem's Google result converter](https://github.com/alexreisner/geocoder/blob/master/lib/geocoder/results/google.rb), which wraps a [`GeocoderResult` from Google Maps API v3](https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult) object to provide convenience methods.  Basic usage:
+
+```javascript
+// boilerplate geocoding
+geocoder.geocode({ 'address': address }, function(results, status){
+  if (status === google.maps.GeocoderStatus.OK){
+
+    // wrap a result
+    var geo = new GeoFormatter(results[0]);
+
+    // use the convenience methods
+    console.log('city:' + geo.getCity() );
+    console.log('state:' + geo.getState() );
+
+  }
+});
+```
+
+Supports AMD, CommonJS, and as a `GeoFormatter` browser global.
+
+## API Docs
+
+### Constructor
+
+Takes a [`google.maps.GeocoderResult`](https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult)
+
+### Methods
+
+* getCoordinates()
+* getAddress()
+* getNeighborhood()
+* getCity()
+* getState()
+* getStateCode()
+* getSubState()
+* getSubStateCode()
+* getCountry()
+* getCountryCode()
+* getPostalCode()
+* getRoute()
+* getStreetNumber()
+* getStreetAddress()
+* getTypes()
+* getFormattedAddress()
+* getGeometry()
+* getPrecision()
 
 ## Running Tests
 
@@ -10,7 +55,3 @@ bundle install
 
 npm test && rake
 ```
-
-## TODO
-
-* ordered types https://github.com/alexreisner/geocoder/blob/1.1.8/lib/geocoder/results/google.rb#L21-L23
