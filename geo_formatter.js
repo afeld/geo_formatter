@@ -14,108 +14,114 @@
   }
 
 }(this, function(){
+
   var geoFormatter = function(result){
     this.result = result;
   };
 
 
-  geoFormatter.prototype.getCoordinates = function(){
-    var loc = this.result.geometry.location;
-    return [loc.lat(), loc.lng()];
-  };
+  // note we lose the constructor() assigning the prototype this way
+  // http://stackoverflow.com/a/12260750/358804
+  geoFormatter.prototype = {
 
-  geoFormatter.prototype.getAddress = function(){
-    return this.result.formatted_address;
-  };
+    getCoordinates: function(){
+      var loc = this.result.geometry.location;
+      return [loc.lat(), loc.lng()];
+    },
 
-  geoFormatter.prototype.getNeighborhood = function(){
-    return this.matchingTypes(['neighborhood']);
-  };
+    getAddress: function(){
+      return this.result.formatted_address;
+    },
 
-  geoFormatter.prototype.getCity = function(){
-    return this.matchingTypes([
-      'locality',
-      'sublocality',
-      'administrative_area_level_3',
-      'administrative_area_level_2'
-    ], true);
-  };
+    getNeighborhood: function(){
+      return this.matchingTypes(['neighborhood']);
+    },
 
-  geoFormatter.prototype.getState = function(){
-    return this.matchingTypes(['administrative_area_level_1']);
-  };
+    getCity: function(){
+      return this.matchingTypes([
+        'locality',
+        'sublocality',
+        'administrative_area_level_3',
+        'administrative_area_level_2'
+      ], true);
+    },
 
-  geoFormatter.prototype.getStateCode = function(){
-    return this.matchingTypes(['administrative_area_level_1'], true);
-  };
+    getState: function(){
+      return this.matchingTypes(['administrative_area_level_1']);
+    },
 
-  geoFormatter.prototype.getSubState = function(){
-    return this.matchingTypes(['administrative_area_level_2']);
-  };
+    getStateCode: function(){
+      return this.matchingTypes(['administrative_area_level_1'], true);
+    },
 
-  geoFormatter.prototype.getSubStateCode = function(){
-    return this.matchingTypes(['administrative_area_level_2'], true);
-  };
+    getSubState: function(){
+      return this.matchingTypes(['administrative_area_level_2']);
+    },
 
-  geoFormatter.prototype.getCountry = function(){
-    return this.matchingTypes(['country']);
-  };
+    getSubStateCode: function(){
+      return this.matchingTypes(['administrative_area_level_2'], true);
+    },
 
-  geoFormatter.prototype.getCountryCode = function(){
-    return this.matchingTypes(['country'], true);
-  };
+    getCountry: function(){
+      return this.matchingTypes(['country']);
+    },
 
-  geoFormatter.prototype.getPostalCode = function(){
-    return this.matchingTypes(['postal_code']);
-  };
+    getCountryCode: function(){
+      return this.matchingTypes(['country'], true);
+    },
 
-  geoFormatter.prototype.getRoute = function(){
-    return this.matchingTypes(['route']);
-  };
+    getPostalCode: function(){
+      return this.matchingTypes(['postal_code']);
+    },
 
-  geoFormatter.prototype.getStreetNumber = function(){
-    return this.matchingTypes(['street_number']);
-  };
+    getRoute: function(){
+      return this.matchingTypes(['route']);
+    },
 
-  geoFormatter.prototype.getStreetAddress = function(){
-    var streetNum = this.getStreetNumber(),
-      route = this.getRoute();
+    getStreetNumber: function(){
+      return this.matchingTypes(['street_number']);
+    },
 
-    if (streetNum && route){
-      return [streetNum, route].join(' ');
-    } else {
-      return streetNum || route;
-    }
-  };
+    getStreetAddress: function(){
+      var streetNum = this.getStreetNumber(),
+        route = this.getRoute();
 
-  geoFormatter.prototype.getTypes = function(){
-    return this.result.types;
-  };
+      if (streetNum && route){
+        return [streetNum, route].join(' ');
+      } else {
+        return streetNum || route;
+      }
+    },
 
-  geoFormatter.prototype.getFormattedAddress = function(){
-    return this.result.formatted_address;
-  };
+    getTypes: function(){
+      return this.result.types;
+    },
 
-  geoFormatter.prototype.getGeometry = function(){
-    return this.result.geometry;
-  };
+    getFormattedAddress: function(){
+      return this.result.formatted_address;
+    },
 
-  geoFormatter.prototype.getPrecision = function(){
-    var geom = this.getGeometry();
-    return geom ? geom.location_type : null;
-  };
+    getGeometry: function(){
+      return this.result.geometry;
+    },
+
+    getPrecision: function(){
+      var geom = this.getGeometry();
+      return geom ? geom.location_type : null;
+    },
 
 
-  geoFormatter.prototype.matchingTypes = function(types, shortName){
-    var components = this.result.address_components,
-      type, component, i, j;
+    matchingTypes: function(types, shortName){
+      var components = this.result.address_components,
+        type, component, i, j;
 
-    for (i = 0; i < types.length; i++){
-      type = types[i];
-      for (j = 0; j < components.length; j++){
-        component = components[j];
-        if (component.types.indexOf(type) > -1){
-          return shortName ? component.short_name : component.long_name;
+      for (i = 0; i < types.length; i++){
+        type = types[i];
+        for (j = 0; j < components.length; j++){
+          component = components[j];
+          if (component.types.indexOf(type) > -1){
+            return shortName ? component.short_name : component.long_name;
+          }
         }
       }
     }
